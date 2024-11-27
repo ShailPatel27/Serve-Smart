@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Restaurant Management System Admin Page</title>
+	<style>
+    #container {
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    #left-column {
+        width: 45%;
+    }
+    
+    #right-column {
+        width: 50%;
+    }
+    
+    #menu-list li {
+        list-style-type: none;
+        margin-bottom: 10px;
+    }
+    
+    #add-item-btn {
+        margin-top: 20px;
+        padding: 5px 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    
+    th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    th {
+        background-color: #4CAF50;
+        color: white;
+    }
+    </style>
+</head>
+<body>
+	<h1>Welcome to the Admin Page</h1>
+	<div id="container">
+		<div id="left-column">
+			<h2>Menu Items</h2>
+			<ul id="menu-list">
+				
+			</ul>
+			<button id="add-item-btn">Add Item</button>
+		</div>
+	</div>
+
+	<script>// Get references to DOM elements
+        const menuList = document.getElementById('menu-list');
+        const addItemBtn = document.getElementById('add-item-btn');
+        
+        // Add event listeners
+        addItemBtn.addEventListener('click', addItem);
+        menuList.addEventListener('click', DeleteItem);
+        
+        // Define functions
+        function addItem()
+        {
+          const newItemName = prompt('Enter the name of the new item:');
+          const newItemPrice = prompt('Enter the price of the new item:');
+          if (newItemName) 
+          {
+            const newItem = document.createElement('input');
+            
+            newItem.innerText = newItemName;
+            newItem.innerText = newItemPrice
+
+            const deleteButton = createButton('Delete');
+            newItem.appendChild(deleteButton);
+            menuList.appendChild(newItem);
+          }
+        }
+        
+        function DeleteItem(event) 
+        {
+          const listItem = event.target.parentNode;
+          if (event.target.classList.contains('edit-button')) 
+          {
+            const newName = prompt('Enter the new name for this item:');
+            if (newName) 
+            {
+              listItem.innerText = newName;
+              const deleteButton = createButton('Delete');
+              listItem.appendChild(deleteButton);
+            }
+          } else if (event.target.classList.contains('delete-button')) 
+          {
+            const confirmed = confirm('Are you sure you want to delete this item?');
+            if (confirmed) 
+            {
+              listItem.remove();
+            }
+          }
+        }
+        
+        function createButton(text)
+        {
+          const button = document.createElement('button');
+          button.innerText = text;
+          button.classList.add('edit-button');
+          if (text === 'Delete') 
+          {
+            button.classList.remove('edit-button');
+            button.classList.add('delete-button');
+          }
+          return button;
+        }
+        </script>
+</body>
+</html>

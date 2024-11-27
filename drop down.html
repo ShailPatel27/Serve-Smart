@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Fancy Drop-Down List</title>
+  <style>
+    /* Add CSS styles for the custom select element */
+    .custom-select {
+      position: relative;
+      display: inline-block;
+      border-radius: 4px;
+      background-color: #f2f2f2;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .custom-select select {
+      display: none;
+    }
+
+    .custom-select .select-selected {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .custom-select .select-selected:after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      border-width: 6px 6px 0 6px;
+      border-style: solid;
+      border-color: white transparent transparent transparent;
+    }
+
+    .custom-select .select-items {
+      position: absolute;
+      z-index: 1;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background-color: #f2f2f2;
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid #ccc;
+    }
+
+    .custom-select .select-items div {
+      display: block;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .custom-select .select-items div:hover {
+      background-color: #4CAF50;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Fancy Drop-Down List</h1>
+  <div class="custom-select">
+    <select>
+      <option value="option1">Option 1</option>
+      <option value="option2">Option 2</option>
+      <option value="option3">Option 3</option>
+    </select>
+    <div class="select-selected">Select an option</div>
+    <div class="select-items">
+      <div>Option 1</div>
+      <div>Option 2</div>
+      <div>Option 3</div>
+    </div>
+  </div>
+  <script>
+    // Add JavaScript to toggle the custom select element
+    var select = document.querySelector(".custom-select select");
+    var selected = document.querySelector(".custom-select .select-selected");
+    var items = document.querySelectorAll(".custom-select .select-items div");
+
+    selected.addEventListener("click", function () {
+      select.click();
+    });
+
+    select.addEventListener("change", function () {
+      selected.innerHTML = this.value;
+    });
+
+    for (var i = 0; i < items.length; i++) {
+      items[i].addEventListener("click", function () {
+        selected.innerHTML = this.innerHTML;
+        select.value = this.innerHTML;
+        selected.click();
+      });
+    }
+  </script>
+</body>
+
+</html>
